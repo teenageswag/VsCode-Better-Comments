@@ -1,36 +1,60 @@
 # Better Comment Tags Highlight
 
-VS Code extension that highlights specific tags in comments with colored backgrounds for better readability.
+Highlights comment tags like `ERROR:`, `WARN:`, `NOTE:`, `IDEA:` with customizable colors.
 
-## Supported Tags
+Works with `//`, `#`, `--`, and `/*` comment styles. Case-insensitive.
 
-| Group | Tags | Color |
+## Tags
+
+| Group | Tags | Default Color |
 |---|---|---|
-| 🔴 Critical | `ERROR:` `ERR:` `FIX:` `FIXME:` | Red `#D92626` |
-| 🟡 Warning | `WARNING:` `WARN:` | Orange `#D99D26` |
-| 🔵 Ideas | `IDEA:` `OPTIMIZE:` | Blue `#306DE8` |
-| 🔵 Info | `NOTE:` `INFO:` | Light Blue `#309BE8` |
+| 🔴 Critical | `ERROR:` `ERR:` `FIX:` `FIXME:` | `#D92626` |
+| 🟡 Warning | `WARNING:` `WARN:` | `#D99D26` |
+| 🔵 Ideas | `IDEA:` `OPTIMIZE:` | `#306DE8` |
+| 🔵 Info | `NOTE:` `INFO:` | `#309BE8` |
 
-Tags are matched **case-insensitively** inside lines starting with `//`, `#`, `--`, or `/*`.
+## Install
 
-## Build & Run
+### From Release
+
+1. Download the `.vsix` file from [Releases](https://github.com/j2cks/vs-code-better-comment-tags-highlight/releases)
+2. Open VS Code → `Ctrl+Shift+P` → **Extensions: Install from VSIX...**
+3. Select the downloaded `.vsix` file
+4. Reload VS Code
+
+### Build from Source
 
 ```bash
-# Install dependencies
+git clone https://github.com/j2cks/vs-code-better-comment-tags-highlight.git
+cd vs-code-better-comment-tags-highlight
 npm install
-
-# Compile TypeScript
-npm run compile
+npm run package
 ```
 
-Press **F5** in VS Code to launch the Extension Development Host and test.
+This creates a `.vsix` file in the project root. Install it the same way as above.
 
-## Example
+## Settings
 
-```js
-// ERROR: This needs immediate attention
-// warn: Potential issue here
-# NOTE: Keep this in mind
-/* IDEA: We could refactor this */
--- FIXME: Legacy code
+Add to your `settings.json` to customize any group:
+
+```jsonc
+{
+  "betterCommentTags.critical.color": "#D92626",         // text color
+  "betterCommentTags.critical.backgroundColor": "",       // background (empty = none)
+  "betterCommentTags.critical.fontWeight": "bold",        // normal, bold, 100-900
+
+  "betterCommentTags.warning.color": "#D99D26",
+  "betterCommentTags.warning.backgroundColor": "",
+  "betterCommentTags.warning.fontWeight": "bold",
+
+  "betterCommentTags.ideas.color": "#306DE8",
+  "betterCommentTags.ideas.backgroundColor": "",
+  "betterCommentTags.ideas.fontWeight": "bold",
+
+  "betterCommentTags.info.color": "#309BE8",
+  "betterCommentTags.info.backgroundColor": "",
+  "betterCommentTags.info.fontWeight": "bold"
+}
 ```
+
+Changes apply instantly — no reload needed.

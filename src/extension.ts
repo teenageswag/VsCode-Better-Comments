@@ -7,34 +7,34 @@ import * as vscode from 'vscode';
 interface TagGroup {
 	name: string;
 	tags: string[];
-	backgroundColor: string;
+	defaultColor: string;
 }
 
 const TAG_GROUPS: TagGroup[] = [
 	{
 		name: 'critical',
 		tags: ['ERROR', 'ERR', 'FIX', 'FIXME'],
-		backgroundColor: '#D92626',
+		defaultColor: '#D92626',
 	},
 	{
 		name: 'warning',
 		tags: ['WARNING', 'WARN'],
-		backgroundColor: '#D99D26',
+		defaultColor: '#D99D26',
 	},
 	{
 		name: 'ideas',
 		tags: ['IDEA', 'OPTIMIZE'],
-		backgroundColor: '#306DE8',
+		defaultColor: '#306DE8',
 	},
 	{
 		name: 'info',
 		tags: ['NOTE', 'INFO'],
-		backgroundColor: '#309BE8',
+		defaultColor: '#309BE8',
 	},
 ];
 
 // ---------------------------------------------------------------------------
-// Build decoration types & regex patterns
+// Build decoration types & regex patterns from settings
 // ---------------------------------------------------------------------------
 
 interface TagGroupRuntime {
@@ -42,22 +42,35 @@ interface TagGroupRuntime {
 	regex: RegExp;
 }
 
+function readGroupStyle(group: TagGroup): vscode.DecorationRenderOptions {
+	const config = vscode.workspace.getConfiguration('betterCommentTags');
+
+	const color = config.get<string>(`${group.name}.color`, group.defaultColor);
+	const backgroundColor = config.get<string>(`${group.name}.backgroundColor`, '');
+	const fontWeight = config.get<string>(`${group.name}.fontWeight`, 'bold');
+
+	const options: vscode.DecorationRenderOptions = {
+		color,
+		fontWeight,
+	};
+
+	// Only set backgroundColor when the user explicitly provides a value
+	if (backgroundColor) {
+		options.backgroundColor = backgroundColor;
+		options.borderRadius = '3px';
+	}
+
+	return options;
+}
+
 function buildRuntimeGroups(): TagGroupRuntime[] {
 	return TAG_GROUPS.map((group) => {
-		const decorationType = vscode.window.createTextEditorDecorationType({
-			backgroundColor: group.backgroundColor,
-			color: '#FFFFFF',
-			fontWeight: 'bold',
-			borderRadius: '3px',
-			// Tiny horizontal padding so the tag doesn't feel cramped
-			// VS Code expects a CSS-style string here
-			before: undefined,
-			after: undefined,
-		});
+		const decorationType = vscode.window.createTextEditorDecorationType(
+			readGroupStyle(group),
+		);
 
 		// Match comment prefixes (//, #, --, /*) followed by optional whitespace
 		// and then one of the group's tags (case-insensitive).
-		// Captures everything from the comment prefix through the tag colon.
 		const tagsPattern = group.tags.join('|');
 		const regex = new RegExp(
 			`(//|#|--|/\\*)\\s*(${tagsPattern}):`,
@@ -118,6 +131,25 @@ function debounce<T extends (...args: unknown[]) => void>(
 
 let runtimeGroups: TagGroupRuntime[] = [];
 
+/**
+ * Dispose old decoration types and rebuild from current settings.
+ */
+function rebuildDecorations(): void {
+	// Dispose previous decoration types
+	for (const group of runtimeGroups) {
+		group.decorationType.dispose();
+	}
+
+	// Build fresh from settings
+	runtimeGroups = buildRuntimeGroups();
+
+	// Re-apply to the active editor immediately
+	const editor = vscode.window.activeTextEditor;
+	if (editor) {
+		updateDecorations(editor, runtimeGroups);
+	}
+}
+
 export function activate(context: vscode.ExtensionContext): void {
 	runtimeGroups = buildRuntimeGroups();
 
@@ -144,9 +176,16 @@ export function activate(context: vscode.ExtensionContext): void {
 		}
 	});
 
-	context.subscriptions.push(onEditorChange, onDocChange);
+	// Rebuild decorations when settings change
+	const onConfigChange = vscode.workspace.onDidChangeConfiguration((event) => {
+		if (event.affectsConfiguration('betterCommentTags')) {
+			rebuildDecorations();
+		}
+	});
 
-	// Also push all decoration types so they get disposed automatically
+	context.subscriptions.push(onEditorChange, onDocChange, onConfigChange);
+
+	// Push decoration types for cleanup on deactivate
 	for (const group of runtimeGroups) {
 		context.subscriptions.push(group.decorationType);
 	}
@@ -159,5 +198,5 @@ export function activate(context: vscode.ExtensionContext): void {
 }
 
 export function deactivate(): void {
-	// Decoration types are disposed via context.subscriptions — nothing extra needed
+	// Decoration types are disposed via context.subscriptions
 }

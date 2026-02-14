@@ -1,7 +1,7 @@
 {
 	"name": "better-comment-tags-highlight",
 	"displayName": "Better Comment Tags Highlight",
-	"description": "Highlights specific tags in comments (ERROR, WARN, NOTE, IDEA, etc.) with colored backgrounds for better code readability.",
+	"description": "Highlights specific tags in comments (ERROR, WARN, NOTE, IDEA, etc.) with customizable colors for better code readability.",
 	"version": "1.0.0",
 	"publisher": "j2cks",
 	"engines": {
@@ -14,10 +14,129 @@
 		"onStartupFinished"
 	],
 	"main": "./out/extension.js",
-	"contributes": {},
+	"contributes": {
+		"configuration": {
+			"title": "Better Comment Tags Highlight",
+			"properties": {
+				"betterCommentTags.critical.color": {
+					"type": "string",
+					"default": "#D92626",
+					"description": "Text color for critical tags (ERROR, ERR, FIX, FIXME)."
+				},
+				"betterCommentTags.critical.backgroundColor": {
+					"type": "string",
+					"default": "",
+					"description": "Background color for critical tags. Leave empty for no background."
+				},
+				"betterCommentTags.critical.fontWeight": {
+					"type": "string",
+					"default": "bold",
+					"enum": [
+						"normal",
+						"bold",
+						"100",
+						"200",
+						"300",
+						"400",
+						"500",
+						"600",
+						"700",
+						"800",
+						"900"
+					],
+					"description": "Font weight for critical tags."
+				},
+				"betterCommentTags.warning.color": {
+					"type": "string",
+					"default": "#D99D26",
+					"description": "Text color for warning tags (WARNING, WARN)."
+				},
+				"betterCommentTags.warning.backgroundColor": {
+					"type": "string",
+					"default": "",
+					"description": "Background color for warning tags. Leave empty for no background."
+				},
+				"betterCommentTags.warning.fontWeight": {
+					"type": "string",
+					"default": "bold",
+					"enum": [
+						"normal",
+						"bold",
+						"100",
+						"200",
+						"300",
+						"400",
+						"500",
+						"600",
+						"700",
+						"800",
+						"900"
+					],
+					"description": "Font weight for warning tags."
+				},
+				"betterCommentTags.ideas.color": {
+					"type": "string",
+					"default": "#306DE8",
+					"description": "Text color for idea tags (IDEA, OPTIMIZE)."
+				},
+				"betterCommentTags.ideas.backgroundColor": {
+					"type": "string",
+					"default": "",
+					"description": "Background color for idea tags. Leave empty for no background."
+				},
+				"betterCommentTags.ideas.fontWeight": {
+					"type": "string",
+					"default": "bold",
+					"enum": [
+						"normal",
+						"bold",
+						"100",
+						"200",
+						"300",
+						"400",
+						"500",
+						"600",
+						"700",
+						"800",
+						"900"
+					],
+					"description": "Font weight for idea tags."
+				},
+				"betterCommentTags.info.color": {
+					"type": "string",
+					"default": "#309BE8",
+					"description": "Text color for info tags (NOTE, INFO)."
+				},
+				"betterCommentTags.info.backgroundColor": {
+					"type": "string",
+					"default": "",
+					"description": "Background color for info tags. Leave empty for no background."
+				},
+				"betterCommentTags.info.fontWeight": {
+					"type": "string",
+					"default": "bold",
+					"enum": [
+						"normal",
+						"bold",
+						"100",
+						"200",
+						"300",
+						"400",
+						"500",
+						"600",
+						"700",
+						"800",
+						"900"
+					],
+					"description": "Font weight for info tags."
+				}
+			}
+		}
+	},
 	"scripts": {
 		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./"
+		"watch": "tsc -watch -p ./",
+		"package": "npx -y @vscode/vsce package"
 	},
 	"devDependencies": {
 		"@types/node": "^20.11.0",
