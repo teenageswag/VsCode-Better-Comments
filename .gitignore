@@ -1,26 +1,106 @@
-# Compiled output
-out/
-dist/
-*.vsix
+# ────────────────
+# Бинарники и исполняемые
+# ────────────────
+*.exe
+*.dll
+*.exp
+*.pdb        # отладочная информация
+*.obj
+*.o
+*.so
+*.dylib
 
-# Dependencies
-node_modules/
+# ────────────────
+# IDE и системные
+# ────────────────
+.vscode/
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.code-workspace
 
-# IDE
-.vscode-test/
-.vscode/settings.json
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
+# ────────────────
+# Visual Studio мусор
+# ────────────────
+*.VC.db
+*.VC.opendb
+*.ipch
+*.tlog
+*.lastbuildstate
+*.ilk
+*.iobj
+*.iopt
+*.pch
+*.idb
+*.aps
+*.ncb
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Temporary files
+# ────────────────
+# Build system / Output
+# ────────────────
+[Bb]uild/
+[Bb]in/
+[Oo]bj/
+dist/
+out/
+Debug*/
+Release*/
+x64/
+x86/
+*.cache
 *.tmp
-*.temp
-*.cpp
+*.bak
+
+# Игнорим все .lib из билдов
+Debug*/*.lib
+Release*/*.lib
+
+# Но оставляем те, что лежат в libs/
+!libs/**/*.lib
+
+# ────────────────
+# Тестовые и временные
+# ────────────────
+*.test
+*.old
+*.swp
+*.orig
+
+# ────────────────
+# Секреты
+# ────────────────
+*.env
+.env.*
+*.pem
+*.key
+*.crt
+
+# ────────────────
+# Мультимедиа и ассеты (неисполняемые файлы лучше хранить отдельно)
+# ────────────────
+*.mp4
+*.avi
+*.mov
+*.mp3
+*.wav
+*.flac
+*.psd
+*.blend
+*.fbx
+
+# ────────────────
+# Архивы
+# ────────────────
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# ────────────────
+# Node / JS (если вдруг в проекте есть вебка)
+# ────────────────
+node_modules/

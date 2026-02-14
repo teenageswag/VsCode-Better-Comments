@@ -151,7 +151,7 @@
 	"scripts": {
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
-		"package": "npx -y @vscode/vsce package"
+		"package": "npx -y @vscode/vsce package --out better-comment-highlight.vsix"
 	},
 	"devDependencies": {
 		"@types/node": "^20.11.0",
