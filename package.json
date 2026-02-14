@@ -92,7 +92,7 @@
 				"betterCommentTags.ideas.color": {
 					"type": "string",
 					"default": "#306DE8",
-					"description": "Text color for idea tags (IDEA, OPTIMIZE)."
+					"description": "Text color for idea tags (TODO, IDEA, OPTIMIZE)."
 				},
 				"betterCommentTags.ideas.backgroundColor": {
 					"type": "string",

@@ -23,7 +23,7 @@ const TAG_GROUPS: TagGroup[] = [
 	},
 	{
 		name: 'ideas',
-		tags: ['IDEA', 'OPTIMIZE'],
+		tags: ['TODO', 'IDEA', 'OPTIMIZE'],
 		defaultColor: '#306DE8',
 	},
 	{
@@ -104,7 +104,7 @@ function updateDecorations(
 			const lineStart = text.lastIndexOf('\n', matchIndex) + 1;
 			const lineText = text.substring(lineStart, text.indexOf('\n', matchIndex) + 1 || text.length);
 			const posInLine = matchIndex - lineStart;
-			
+
 			// Check if we're in a single-line comment (//, #, --)
 			const singleLineComment = lineText.match(/^\s*(\/\/|#|--)/);
 			// Check if we're in a multi-line comment (/* ... */)
@@ -112,7 +112,7 @@ function updateDecorations(
 			const lastCommentStart = beforeMatch.lastIndexOf('/*');
 			const lastCommentEnd = beforeMatch.lastIndexOf('*/');
 			const inMultiLineComment = lastCommentStart > lastCommentEnd;
-			
+
 			// Only highlight if we're actually in a comment
 			if (singleLineComment || inMultiLineComment) {
 				const startPos = editor.document.positionAt(match.index);

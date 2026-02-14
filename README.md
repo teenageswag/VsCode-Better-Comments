@@ -10,7 +10,7 @@ Automatically highlights the following tags in comments:
 |---|---|---|
 | 🔴 Critical | `ERROR:` `ERR:` `FIX:` `FIXME:` | `#D92626` |
 | 🟡 Warning | `WARNING:` `WARN:` | `#D99D26` |
-| 🔵 Ideas | `IDEA:` `OPTIMIZE:` | `#306DE8` |
+| 🔵 Ideas | `TODO:` `IDEA:` `OPTIMIZE:` | `#306DE8` |
 | 🔵 Info | `NOTE:` `INFO:` | `#309BE8` |
 
 ## Supported Comment Types
