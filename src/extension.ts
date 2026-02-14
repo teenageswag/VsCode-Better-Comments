@@ -69,11 +69,11 @@ function buildRuntimeGroups(): TagGroupRuntime[] {
 			readGroupStyle(group),
 		);
 
-		// Match comment prefixes (//, #, --, /*) followed by optional whitespace
-		// and then one of the group's tags (case-insensitive).
+		// Match tags anywhere in comments, not just at the start
+		// This regex looks for the tag followed by a colon, optionally preceded by whitespace
 		const tagsPattern = group.tags.join('|');
 		const regex = new RegExp(
-			`(//|#|--|/\\*)\\s*(${tagsPattern}):`,
+			`\\b(${tagsPattern})\\s*:`,
 			'gi',
 		);
 
@@ -99,9 +99,26 @@ function updateDecorations(
 
 		let match: RegExpExecArray | null;
 		while ((match = group.regex.exec(text)) !== null) {
-			const startPos = editor.document.positionAt(match.index);
-			const endPos = editor.document.positionAt(match.index + match[0].length);
-			decorations.push({ range: new vscode.Range(startPos, endPos) });
+			// Check if this match is inside a comment
+			const matchIndex = match.index;
+			const lineStart = text.lastIndexOf('\n', matchIndex) + 1;
+			const lineText = text.substring(lineStart, text.indexOf('\n', matchIndex) + 1 || text.length);
+			const posInLine = matchIndex - lineStart;
+			
+			// Check if we're in a single-line comment (//, #, --)
+			const singleLineComment = lineText.match(/^\s*(\/\/|#|--)/);
+			// Check if we're in a multi-line comment (/* ... */)
+			const beforeMatch = text.substring(0, matchIndex);
+			const lastCommentStart = beforeMatch.lastIndexOf('/*');
+			const lastCommentEnd = beforeMatch.lastIndexOf('*/');
+			const inMultiLineComment = lastCommentStart > lastCommentEnd;
+			
+			// Only highlight if we're actually in a comment
+			if (singleLineComment || inMultiLineComment) {
+				const startPos = editor.document.positionAt(match.index);
+				const endPos = editor.document.positionAt(match.index + match[0].length);
+				decorations.push({ range: new vscode.Range(startPos, endPos) });
+			}
 		}
 
 		editor.setDecorations(group.decorationType, decorations);

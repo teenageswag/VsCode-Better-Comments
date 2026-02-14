@@ -1,10 +1,10 @@
 # Better Comment Tags Highlight
 
-Highlights comment tags like `ERROR:`, `WARN:`, `NOTE:`, `IDEA:` with customizable colors.
+VS Code extension that highlights special tags in comments with customizable colors for better code readability.
 
-Works with `//`, `#`, `--`, and `/*` comment styles. Case-insensitive.
+## Features
 
-## Tags
+Automatically highlights the following tags in comments:
 
 | Group | Tags | Default Color |
 |---|---|---|
@@ -13,7 +13,26 @@ Works with `//`, `#`, `--`, and `/*` comment styles. Case-insensitive.
 | 🔵 Ideas | `IDEA:` `OPTIMIZE:` | `#306DE8` |
 | 🔵 Info | `NOTE:` `INFO:` | `#309BE8` |
 
-## Install
+## Supported Comment Types
+
+- Single-line: `//`, `#`, `--`
+- Multi-line: `/* ... */`
+- Case-insensitive matching
+
+## Usage Examples
+
+```cpp
+// NOTE: This is an important note
+// WARN: Requires attention
+// ERROR: Critical error
+
+/*
+NOTE: Note in multi-line comment
+WARN: Multiple tags work correctly now
+*/
+```
+
+## Installation
 
 ### From Release
 
@@ -28,12 +47,13 @@ Works with `//`, `#`, `--`, and `/*` comment styles. Case-insensitive.
 git clone https://github.com/j2cks/vs-code-better-comment-tags-highlight.git
 cd vs-code-better-comment-tags-highlight
 npm install
+npm run compile
 npm run package
 ```
 
 This creates a `.vsix` file in the project root. Install it the same way as above.
 
-## Settings
+## Configuration
 
 Add to your `settings.json` to customize any group:
 
@@ -58,3 +78,14 @@ Add to your `settings.json` to customize any group:
 ```
 
 Changes apply instantly — no reload needed.
+
+## What's New in 1.1.0
+
+- Fixed issue where comment prefix (`/*`) was highlighted instead of the tag
+- Multiple tags in a single comment now work correctly
+- Improved performance and accuracy of tag detection
+- Enhanced .gitignore
+
+## License
+
+MIT
