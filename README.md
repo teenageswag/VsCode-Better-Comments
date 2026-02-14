@@ -45,7 +45,7 @@ WARN: Multiple tags work correctly now
 
 ```bash
 git clone https://github.com/j2cks/vs-code-better-comment-tags-highlight.git
-cd vs-code-better-comment-tags-highlight
+cd VsCode-Better-Comments
 npm install
 npm run compile
 npm run package
