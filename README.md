@@ -36,7 +36,7 @@ WARN: Multiple tags work correctly now
 
 ### From Release
 
-1. Download the `.vsix` file from [Releases](https://github.com/j2cks/vs-code-better-comment-tags-highlight/releases)
+1. Download the `.vsix` file from [Releases](https://github.com/j2cks/VsCode-Better-Comments/releases)
 2. Open VS Code → `Ctrl+Shift+P` → **Extensions: Install from VSIX...**
 3. Select the downloaded `.vsix` file
 4. Reload VS Code
@@ -44,7 +44,7 @@ WARN: Multiple tags work correctly now
 ### Build from Source
 
 ```bash
-git clone https://github.com/j2cks/vs-code-better-comment-tags-highlight.git
+git clone https://github.com/teenageswag/VsCode-Better-Comments.git
 cd VsCode-Better-Comments
 npm install
 npm run compile
