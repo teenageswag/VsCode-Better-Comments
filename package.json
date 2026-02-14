@@ -1,0 +1,27 @@
+{
+	"name": "better-comment-tags-highlight",
+	"displayName": "Better Comment Tags Highlight",
+	"description": "Highlights specific tags in comments (ERROR, WARN, NOTE, IDEA, etc.) with colored backgrounds for better code readability.",
+	"version": "1.0.0",
+	"publisher": "j2cks",
+	"engines": {
+		"vscode": "^1.85.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension.js",
+	"contributes": {},
+	"scripts": {
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.0",
+		"@types/vscode": "^1.85.0",
+		"typescript": "^5.3.3"
+	}
+}
