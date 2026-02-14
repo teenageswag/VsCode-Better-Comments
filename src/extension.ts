@@ -115,8 +115,29 @@ function updateDecorations(
 
 			// Only highlight if we're actually in a comment
 			if (singleLineComment || inMultiLineComment) {
-				const startPos = editor.document.positionAt(match.index);
-				const endPos = editor.document.positionAt(match.index + match[0].length);
+				const lineEnd = text.indexOf('\n', matchIndex) !== -1
+					? text.indexOf('\n', matchIndex)
+					: text.length;
+
+				let highlightStart = match.index;
+
+				if (singleLineComment) {
+					// Start from the beginning of //, #, or --
+					const markerMatch = lineText.match(/(\/\/|#|--)/);
+					if (markerMatch) {
+						const markerIndex = lineText.indexOf(markerMatch[0]);
+						highlightStart = lineStart + markerIndex;
+					}
+				} else if (inMultiLineComment) {
+					// Check if line starts with *
+					const multiLineMarker = lineText.match(/^\s*\*/);
+					if (multiLineMarker) {
+						highlightStart = lineStart + lineText.indexOf('*');
+					}
+				}
+
+				const startPos = editor.document.positionAt(highlightStart);
+				const endPos = editor.document.positionAt(lineEnd);
 				decorations.push({ range: new vscode.Range(startPos, endPos) });
 			}
 		}
