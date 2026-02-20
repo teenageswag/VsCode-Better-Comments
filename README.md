@@ -1,47 +1,40 @@
-# Better Comment Tags Highlight
+# Better Comment Highlight
 
-VS Code extension that highlights special tags in comments with customizable colors for better code readability.
+Лёгкое VS Code-расширение для подсветки специальных тегов в комментариях: `TODO`, `FIXME`, `NOTE`, `WARN` и других.
 
-## Features
+## Что делает расширение
 
-Automatically highlights the following tags in comments:
+- Подсвечивает строки комментариев, содержащие специальные теги.
+- Работает с несколькими типами комментариев:
+  - однострочные: `//`, `#`, `--`
+  - многострочные: `/* ... */`
+- Поддерживает регистронезависимый поиск (`todo:`, `Todo:`, `TODO:` — всё распознается).
+- Позволяет настраивать цвет текста, фон и насыщенность шрифта для каждой группы тегов.
+- Применяет изменения настроек сразу, без перезапуска VS Code.
 
-| Group | Tags | Default Color |
+## Группы тегов по умолчанию
+
+| Группа | Теги | Цвет по умолчанию |
 |---|---|---|
-| 🔴 Critical | `ERROR:` `ERR:` `FIX:` `FIXME:` | `#D92626` |
-| 🟡 Warning | `WARNING:` `WARN:` | `#D99D26` |
-| 🔵 Ideas | `TODO:` `IDEA:` `OPTIMIZE:` | `#306DE8` |
-| 🔵 Info | `NOTE:` `INFO:` | `#309BE8` |
+| Critical | `ERROR`, `ERR`, `FIX`, `FIXME` | `#D92626` |
+| Warning | `WARNING`, `WARN` | `#D99D26` |
+| Ideas | `TODO`, `IDEA`, `OPTIMIZE` | `#306DE8` |
+| Info | `NOTE`, `INFO` | `#309BE8` |
 
-## Supported Comment Types
+> Тег должен быть в формате `TAG:` (с двоеточием), например `TODO:` или `FIXME:`.
 
-- Single-line: `//`, `#`, `--`
-- Multi-line: `/* ... */`
-- Case-insensitive matching
+## Как пользоваться
 
-## Usage Examples
+### 1) Установка
 
-```cpp
-// NOTE: This is an important note
-// WARN: Requires attention
-// ERROR: Critical error
+#### Вариант A — из Releases
 
-/*
-NOTE: Note in multi-line comment
-WARN: Multiple tags work correctly now
-*/
-```
+1. Скачайте `.vsix` из [Releases](https://github.com/j2cks/VsCode-Better-Comments/releases).
+2. В VS Code откройте `Ctrl+Shift+P`.
+3. Выполните команду **Extensions: Install from VSIX...**.
+4. Выберите скачанный файл.
 
-## Installation
-
-### From Release
-
-1. Download the `.vsix` file from [Releases](https://github.com/j2cks/VsCode-Better-Comments/releases)
-2. Open VS Code → `Ctrl+Shift+P` → **Extensions: Install from VSIX...**
-3. Select the downloaded `.vsix` file
-4. Reload VS Code
-
-### Build from Source
+#### Вариант B — сборка из исходников
 
 ```bash
 git clone https://github.com/teenageswag/VsCode-Better-Comments.git
@@ -51,17 +44,31 @@ npm run compile
 npm run package
 ```
 
-This creates a `.vsix` file in the project root. Install it the same way as above.
+После этого в корне проекта будет `.vsix`, который можно установить через **Install from VSIX...**.
 
-## Configuration
+### 2) Добавление тегов в код
 
-Add to your `settings.json` to customize any group:
+```ts
+// TODO: вынести это в отдельный сервис
+// WARN: возможна деградация производительности
+// FIXME: некорректная обработка edge-case
+// NOTE: важно не менять порядок инициализации
+
+/*
+ * IDEA: заменить текущую стратегию кэширования
+ * INFO: этот блок зависит от настроек пользователя
+ */
+```
+
+### 3) Настройка внешнего вида
+
+Откройте `settings.json` и задайте нужные параметры:
 
 ```jsonc
 {
-  "betterCommentTags.critical.color": "#D92626",         // text color
-  "betterCommentTags.critical.backgroundColor": "",       // background (empty = none)
-  "betterCommentTags.critical.fontWeight": "bold",        // normal, bold, 100-900
+  "betterCommentTags.critical.color": "#D92626",
+  "betterCommentTags.critical.backgroundColor": "",
+  "betterCommentTags.critical.fontWeight": "bold",
 
   "betterCommentTags.warning.color": "#D99D26",
   "betterCommentTags.warning.backgroundColor": "",
@@ -77,15 +84,27 @@ Add to your `settings.json` to customize any group:
 }
 ```
 
-Changes apply instantly — no reload needed.
+### Поддерживаемые значения `fontWeight`
 
-## What's New in 1.1.0
+- `normal`
+- `bold`
+- `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`
 
-- Fixed issue where comment prefix (`/*`) was highlighted instead of the tag
-- Multiple tags in a single comment now work correctly
-- Improved performance and accuracy of tag detection
-- Enhanced .gitignore
+## Частые вопросы
 
-## License
+### Почему тег не подсвечивается?
+
+Проверьте:
+
+- тег написан с двоеточием (`TODO:`),
+- тег находится именно внутри комментария,
+- используется один из поддерживаемых тегов группы,
+- файл открыт в редакторе (подсветка применяется к активному документу).
+
+### Нужно ли перезагружать VS Code после изменения цветов?
+
+Нет. Настройки применяются автоматически.
+
+## Лицензия
 
 MIT
