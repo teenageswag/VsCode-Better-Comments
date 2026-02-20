@@ -2,7 +2,7 @@
 	"name": "better-comment-highlight",
 	"displayName": "Better Comment Highlight",
 	"description": "Highlights specific tags in comments (ERROR, WARN, NOTE, IDEA, etc.) with customizable colors for better code readability.",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"publisher": "j2cks",
 	"icon": "pic/icon.png",
 	"repository": {
