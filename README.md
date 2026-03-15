@@ -2,7 +2,10 @@
 
 Lightweight VS Code extension that highlights tags in comments (TODO, FIXME, NOTE, WARN) with customizable colors.
 
+![Example](pic/example.png)
+
 ## Features
+
 - Works with single-line and multi-line comments.
 - Case-insensitive tag detection.
 - Custom colors, background, and font weight.
@@ -22,11 +25,13 @@ Tags must be followed by a colon, for example: `TODO: refactor`.
 ## Install
 
 From Releases:
+
 1. Download the latest `.vsix` from [GitHub Releases](https://github.com/teenageswag/vscode-better-comments/releases).
 2. In VS Code, open the Command Palette (`Ctrl+Shift+P`).
 3. Run `Extensions: Install from VSIX...`.
 
 Build from source:
+
 ```bash
 git clone https://github.com/teenageswag/vscode-better-comments
 cd .\vscode-better-comments\
@@ -38,6 +43,7 @@ npm run package
 ## Configuration
 
 Legacy settings (still supported):
+
 ```jsonc
 {
   "betterCommentTags.critical.color": "#FF2A3D",
@@ -51,6 +57,7 @@ Legacy settings (still supported):
 ```
 
 Custom groups (added to defaults, same-name overrides):
+
 ```jsonc
 {
    "betterCommentTags.groups": [
