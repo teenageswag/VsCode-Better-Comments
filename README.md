@@ -53,22 +53,22 @@ Legacy settings (still supported):
 Custom groups (added to defaults, same-name overrides):
 ```jsonc
 {
-  // "betterCommentTags.groups": [
-  //   {
-  //     "name": "security",
-  //     "tags": ["SEC", "SECURITY", "AUTH"],
-  //     "color": "#FF2A3D",
-  //     "backgroundColor": "",
-  //     "fontWeight": "bold"
-  //   },
-  //   {
-  //     "name": "review",
-  //     "tags": ["REVIEW", "CHECK"],
-  //     "color": "#1AA9F5",
-  //     "backgroundColor": "",
-  //     "fontWeight": "normal"
-  //   }
-  // ]
+   "betterCommentTags.groups": [
+     {
+       "name": "security",
+       "tags": ["SEC", "SECURITY", "AUTH"],
+       "color": "#FF2A3D",
+       "backgroundColor": "",
+       "fontWeight": "bold"
+     },
+     {
+       "name": "review",
+       "tags": ["REVIEW", "CHECK"],
+       "color": "#1AA9F5",
+       "backgroundColor": "",
+       "fontWeight": "normal"
+     }
+   ]
 }
 ```
 
