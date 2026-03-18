@@ -25,14 +25,6 @@ Lightweight VS Code extension that highlights tags in comments (TODO, FIXME, NOT
 
 Tags must be followed by a colon. Optional metadata in parentheses is allowed.
 
-Examples:
-
-`TODO: refactor`
-
-`ERR (16.03.2026): fix this`
-
-`NOTE(artem): update`
-
 ## Install
 
 From Releases:
