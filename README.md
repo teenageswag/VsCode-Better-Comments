@@ -7,7 +7,10 @@ Lightweight VS Code extension that highlights tags in comments (TODO, FIXME, NOT
 ## Features
 
 - Works with single-line and multi-line comments.
+- Supports HTML/XML comments (`<!-- -->`).
 - Case-insensitive tag detection.
+- Optional metadata in parentheses after the tag.
+- Multi-line blocks keep the active tag color until the next tag, a blank line, or end of the block.
 - Custom colors, background, and font weight.
 - Settings apply instantly.
 
@@ -20,7 +23,15 @@ Lightweight VS Code extension that highlights tags in comments (TODO, FIXME, NOT
 | Ideas | TODO, IDEA, OPTIMIZE | #1AA9F5 |
 | Info | NOTE, INFO | #6FEA2D |
 
-Tags must be followed by a colon, for example: `TODO: refactor`.
+Tags must be followed by a colon. Optional metadata in parentheses is allowed.
+
+Examples:
+
+`TODO: refactor`
+
+`ERR (16.03.2026): fix this`
+
+`NOTE(artem): update`
 
 ## Install
 

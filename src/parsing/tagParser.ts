@@ -14,7 +14,10 @@ export class TagParser implements ITagParser {
 				continue;
 			}
 
-			const regex = new RegExp(`(^|[^\\w])(${tagsPattern})\\s*:`, 'gi');
+			const regex = new RegExp(
+				`(^|[^\\w])(${tagsPattern})\\s*(\\([^\\r\\n)]*\\))?\\s*:`,
+				'gi',
+			);
 
 			let match: RegExpExecArray | null;
 			while ((match = regex.exec(text)) !== null) {
